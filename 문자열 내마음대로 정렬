@@ -1,0 +1,13 @@
+function solution(strings, n) {
+    // 각문자의 n인덱스값에 문자 + 원래 단어들
+    for (let i = 0; i<strings.length;i++){
+        strings[i] = strings[i][n] + strings[i]
+    }
+    // 각문자의 n인덱스값에 문자 + 원래 단어들 정렬
+    strings.sort();
+    // 문자열 맨앞에있는 문자 제거
+    for (let i = 0; i<strings.length; i++){
+        strings[i] = strings[i].slice(1)
+    }
+    return strings
+}
