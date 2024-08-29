@@ -1,0 +1,22 @@
+function solution (n,m,k,arr) {
+    let input = arr.sort((a,b)=>b-a);
+    let first=input[0];
+    let second=input[1];
+    let answer = 0 ;
+    let count = m ;
+    while (true) {
+        for (let i = 1; i <= k; i++){
+            if (count === 0) break;
+                answer += first;
+                count -= 1
+        }
+    
+    if (count === 0) break;
+        answer += second ; 
+        count -= 1
+        }
+    
+    return answer
+    }
+
+  
