@@ -1,0 +1,12 @@
+function solution(money) {
+    const COIN_TYPES = [500, 100, 50, 10];
+    let N = money
+    let count = 0;
+    //for ..of  
+    for(const coin of COIN_TYPES){
+    count += ~~(N / coin);
+        N %= coin
+    console.log(coin)
+}
+    return  count
+}
