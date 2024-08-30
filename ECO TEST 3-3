@@ -1,0 +1,30 @@
+// 첫째 줄에 자연수 여러줄을 받고 다음줄에 여러줄에 걸쳐 한줄에 하나의 값을 받을때 사용
+const fs = require('fs');
+let input = fs.readFileSync("./input.txt").toString().trim().split('\n');
+
+let [nm, ...arr] = input;
+let [n, m] = nm.split(' ').map((v) => +v);
+arr = arr.map((v) => v.split(' ').map((v) => +v));
+console.log(arr);
+// 내가 한 풀이
+function solution1(n, m, arr) {
+    // 빈 배열 생성
+    let answer = [];
+    // 각 배열 각행의 최솟값을 answer 배열에 하나씩 push
+for (let num of arr) {
+    answer.push(Math.min(...num))
+}
+    // 그중에서 최댓값 구하기
+return Math.max(...answer);
+}
+
+// 정석 풀이 그게 그거인듯
+function solution2(n, m, arr) {
+    let result = 0;
+    for (const cur of arr) {
+      result = Math.max(result, Math.min(...cur));
+    }
+    return result;
+  }
+
+console.log(solution1(n, m, arr));   
