@@ -1,0 +1,44 @@
+// 같은 줄에 자연수 두개 받을때 사용합니다~
+const fs = require('fs');
+let input = fs.readFileSync("./input.txt").toString().trim();
+
+let [n, k] = input.split(' ').map((v) => +v);
+
+function solution1(n, k) {
+    // count 횟수 변수 지정
+    let count = 0;
+    //반복문 사용
+    while (true){
+    // 먼저 k 로 n 을 나눌수 있는지 확인 후 해당 될시 n = n / k 후 count += 1 
+    if ( n % k === 0) {
+        n = n / k ;
+        count += 1 ;
+    }
+    // n % k !== 0 일시 n -= 1 하고 count += 1
+    else {
+        n -= 1 ;
+        count += 1 ;
+    }
+    // 반복문 한번 돌렷을 때 n 이 1이면 break
+    if (n === 1) break ;
+    }
+    // count 값 출력
+    return count;
+}
+// 내가 보는 사람의 풀이 코드가 좀더 짧아 지긴 했는데 크게 차이안나고 가독성부분에서는 내가 낫지 않나? 싶음
+function solution2(n, k) {
+    let result = 0;
+  
+    while (n > 1) {
+      if (n % k === 0) {
+        n /= k;
+      } else {
+        n--;
+      }
+      result++;
+    }
+  
+    return result;
+  }
+
+console.log(solution1(n, k));
