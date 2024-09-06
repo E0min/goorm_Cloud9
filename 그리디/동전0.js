@@ -1,5 +1,5 @@
 //https://www.acmicpc.net/problem/11047
-
+//백준
 const readline = require('readline');
 
 // readline 인터페이스를 만듭니다.

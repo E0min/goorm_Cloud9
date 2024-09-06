@@ -1,3 +1,5 @@
+//프로그래머스_lv.1
+//
 function solution(n, lost, reserve) {
     var answer = 0;
     let recover=0;
