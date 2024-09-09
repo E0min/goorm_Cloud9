@@ -15,14 +15,17 @@ rl.on('line', function (line) {
     let [N, M, V] = input[0].split(" ").map(Number); // N: 정점 수, M: 간선 수, V: 시작 정점
     let edges = input.slice(1).map(line => line.split(" ").map(Number));
 
-    // 인접 행렬 생성 (1-based index)
-    let matrix = Array.from({ length: N + 1 }, () => Array(N + 1).fill(0));
+    // 인접 리스트 생성 (1-based index)
+    let adjacentList = Array.from({ length: N + 1 }, () => []);
 
     // 간선 추가 (양방향 그래프)
     edges.forEach(([a, b]) => {
-        matrix[a][b] = 1;
-        matrix[b][a] = 1; // 무방향 그래프이므로 양방향으로 간선을 추가
+        adjacentList[a].push(b);
+        adjacentList[b].push(a);
     });
+
+    // 각 정점의 인접 노드를 번호 순서대로 정렬
+    adjacentList.forEach(neighbors => neighbors.sort((a, b) => a - b));
 
     //////////////////////////DFS (스택을 사용한 구현)//////////////////////////////
     let visitedDFS = Array(N + 1).fill(false); // 방문한 노드를 기록하는 배열
@@ -36,10 +39,11 @@ rl.on('line', function (line) {
             visitedDFS[nodeDFS] = true; // 방문 처리
             resultDFS.push(nodeDFS); // 방문한 노드를 결과 배열에 추가
 
-            // 번호가 작은 노드부터 스택에 넣기 위해 내림차순으로 탐색
-            for (let i = N; i > 0; i--) {
-                if (matrix[nodeDFS][i] === 1 && !visitedDFS[i]) {
-                    stack.push(i);
+            // 번호가 큰 순서대로 스택에 넣기 (작은 번호부터 탐색되게 하기 위해)
+            for (let i = adjacentList[nodeDFS].length - 1; i >= 0; i--) {
+                let neighbor = adjacentList[nodeDFS][i];
+                if (!visitedDFS[neighbor]) {
+                    stack.push(neighbor);
                 }
             }
         }
@@ -57,11 +61,11 @@ rl.on('line', function (line) {
         let nodeBFS = queue.shift(); // 큐에서 노드를 꺼냄
         resultBFS.push(nodeBFS); // 방문한 노드를 결과 배열에 추가
 
-        // 번호가 작은 노드부터 큐에 넣기 위해 오름차순으로 탐색
-        for (let i = 1; i <= N; i++) {
-            if (matrix[nodeBFS][i] === 1 && !visitedBFS[i]) {
-                visitedBFS[i] = true; // 방문 처리
-                queue.push(i); // 방문하지 않은 인접 노드를 큐에 추가
+        // 인접 노드를 작은 번호 순으로 큐에 추가
+        for (let neighbor of adjacentList[nodeBFS]) {
+            if (!visitedBFS[neighbor]) {
+                visitedBFS[neighbor] = true; // 방문 처리
+                queue.push(neighbor); // 방문하지 않은 인접 노드를 큐에 추가
             }
         }
     }
