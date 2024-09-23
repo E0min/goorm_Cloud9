@@ -33,7 +33,6 @@ rl.on('line', function (line) {
     while (queue.length > 0) { // queue에서 토마토를 꺼내면서 BFS시작
         let [x, y] = queue.shift(); //queue에 넣은 것을 꺼낸다.
 
-
         direction.forEach(a => {
             let newX = x + a[0];
             let newY = y + a[1];
