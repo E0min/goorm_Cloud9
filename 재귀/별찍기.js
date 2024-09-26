@@ -16,26 +16,23 @@ rl.on('line', function (line) {
 }).on('close', function () {
 
     const N = parseInt(input[0]);
-
-    function star(n){
-        if(n==1){
-            console.log('*');
-        }else{
-            for(let i = 0 ; i < n/3 ; i++){
-                star(n/3);
-            }
-            for(let i = 0 ; i < n/3 ; i++){
-                star(n/3)ㅂ
-            }
-            for(let i = 0 ; i < n/3 ; i++){
-                star(n/3);
+    let starArr = Array.from({ length: N }, () => Array(N).fill(' ')); //N*N 배열 생성
+    function star(x, y, n) { 
+        if (n == 1) {
+            starArr[x][y] = "*";
+            return;
+        } else {
+            for (let i = 0; i < 3; i++) {
+                for (let j = 0; j < 3; j++) {
+                    if (i == 1 && j == 1) { continue; }
+                    star(x + i * n/3, y + j * n/3, n / 3);
+                }
             }
         }
-
-
     }
-  
-    star(N);
+    star(0,0,N);
+    console.log(starArr.map(a=>a.join("")).join('\n'));
+
 
     rl.close();
 
