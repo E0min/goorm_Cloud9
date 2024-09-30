@@ -1,0 +1,6 @@
+function solution(nums) {
+    let n = nums.length / 2
+    let set = new Set(nums)
+    let arr = [...set]
+    return n <= arr.length ? n : arr.length 
+}
