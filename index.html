@@ -1,11 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Canvas Example</title>
 </head>
 <body>
-    <script src="./DP/N으로 표현.js"></script>
+  <canvas id="myCanvas" width="500" height="400" style="border:1px solid #000;"></canvas>
+
+  <script>
+    const canvas = document.getElementById('myCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // 사각형 그리기
+    ctx.fillStyle = 'blue';
+    ctx.fillRect(50, 50, 150, 100);
+
+    // 선 그리기
+    ctx.beginPath();
+    ctx.moveTo(50, 300);
+    ctx.lineTo(400, 300);
+    ctx.strokeStyle = 'red';
+    ctx.lineWidth = 5;
+    ctx.stroke();
+
+    // 원 그리기
+    ctx.beginPath();
+    ctx.arc(250, 150, 50, 0, Math.PI * 2);
+    ctx.fillStyle = 'green';
+    ctx.fill();
+
+    // 텍스트 출력하기
+    ctx.font = '30px Arial';
+    ctx.fillStyle = 'black';
+    ctx.fillText('Hello Canvas', 100, 50);
+
+    // 이미지 그리기
+    const img = new Image();
+    img.src = 'https://via.placeholder.com/150';
+    img.onload = function () {
+      ctx.drawImage(img, 100, 100);
+    };
+
+    // 애니메이션 구현
+    let x = 0;
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = 'purple';
+      ctx.fillRect(x, 50, 50, 50);
+      x += 2;
+      if (x < canvas.width) {
+        requestAnimationFrame(animate);
+      }
+    }
+    animate();
+  </script>
 </body>
 </html>
